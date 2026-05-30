@@ -15,10 +15,11 @@ import {
   Menu as MenuIcon,
   X,
 } from "lucide-react";
+import { Link, useLocation } from "react-router";
 
 const SidebarItem = ({ icon: Icon, label, href, active }) => (
-  <a
-    href={href}
+  <Link
+    to={href}
     className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
       active
         ? "bg-[#FFC107] text-[#1A1A1A] font-bold shadow-lg"
@@ -27,18 +28,13 @@ const SidebarItem = ({ icon: Icon, label, href, active }) => (
   >
     <Icon size={20} />
     <span className="text-sm font-medium">{label}</span>
-  </a>
+  </Link>
 );
 
 export default function AppLayout({ children }) {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
-  const [pathname, setPathname] = useState("/");
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setPathname(window.location.pathname);
-    }
-  }, []);
+  const location = useLocation();
+  const pathname = location.pathname;
 
   const menuItems = [
     { icon: LayoutDashboard, label: "Dashboard", href: "/" },

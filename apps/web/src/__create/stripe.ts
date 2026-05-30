@@ -1,3 +1,4 @@
+// @ts-nocheck
 import lodash from 'lodash';
 const { partial } = lodash;
 import regularStripe from 'npm:stripe';

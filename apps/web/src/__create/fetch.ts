@@ -12,7 +12,8 @@ const safeStringify = (value: unknown) =>
 const postToParent = (level: string, text: string, extra: unknown) => {
   try {
     if (isBackend() || !window.parent || window.parent === window) {
-      ('level' in console ? console[level] : console.log)(text, extra);
+      const fn = (console as unknown as Record<string, (...args: unknown[]) => void>)[level];
+      if (typeof fn === 'function') { fn(text, extra); } else { console.log(text, extra); }
       return;
     }
     window.parent.postMessage(
@@ -103,7 +104,7 @@ export const fetchWithHeaders = async (
 
   const prefix = !isSecondPartyUrl(url)
     ? isBackend()
-      ? (process.env.NEXT_PUBLIC_CREATE_BASE_URL ?? 'https://www.create.xyz')
+      ? (process.env.NEXT_PUBLIC_CREATE_BASE_URL ?? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:4000'))
       : ''
     : '';
 

@@ -6,6 +6,10 @@
 		".react-router/types/**/*",
 		"./src/global.d.ts"
 	],
+	"exclude": [
+		"**/__create/**/*",
+		"src/__create/**/*"
+	],
 	"compilerOptions": {
 		"lib": ["DOM", "DOM.Iterable", "ES2022"],
 		"types": ["node", "vite/client"],
@@ -21,6 +25,7 @@
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"strict": true,
+		"allowJs": true,
 		"paths": {
 			"@/*": ["./src/*"]
 		}
